@@ -1,7 +1,15 @@
 package com.upgrad.hirewheels.dao;
 
-import com.upgrad.hirewheels.entities.users;
+import com.upgrad.hirewheels.entities.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserDao extends JpaRepository<users,Integer> {
+import java.util.List;
+
+public interface UserDao extends JpaRepository<Users,Integer> {
+    public List<Users> findByFirstNameIgnoreCase(String firstName);
+    public List<Users> findByFirstNameIgnoreCaseOrLastNameIgnoreCase(String firstName , String lastName);
+    public Users findByMobileNoIgnoreCase(String mobileNo);
+    public Users findByEmailIgnoreCase(String email);
+    public Users findByEmailAndPassword(String email, String password);
+
 }

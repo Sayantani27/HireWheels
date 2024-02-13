@@ -4,17 +4,17 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-public class booking {
+public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int booking_id;
+    private int bookingId;
 
     @Column(nullable = false)
-    private LocalDateTime pickup_date;
+    private LocalDateTime pickupDate;
     @Column(nullable = false)
-    private LocalDateTime dropoff_date;
+    private LocalDateTime dropoffDate;
     @Column(nullable = false)
-    private LocalDateTime booking_date;
+    private LocalDateTime bookingDate;
     @Column(nullable = false )
     private float amount;
     @Column(nullable = false )

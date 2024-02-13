@@ -3,7 +3,7 @@ package com.upgrad.hirewheels.entities;
 import javax.persistence.*;
 
 @Entity
-public class vehicle_subcategory {
+public class VehicleSubcategory {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int vehicle_subcategory_id;

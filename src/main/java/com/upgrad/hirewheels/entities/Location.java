@@ -3,7 +3,7 @@ package com.upgrad.hirewheels.entities;
 import javax.persistence.*;
 
 @Entity
-public class location {
+public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int location_id;
