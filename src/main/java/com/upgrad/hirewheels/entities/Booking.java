@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 @Entity
 public class Booking {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private int bookingId;
 
     @Column(nullable = false)
@@ -17,43 +17,46 @@ public class Booking {
     private LocalDateTime bookingDate;
     @Column(nullable = false )
     private float amount;
-    @Column(nullable = false )
-    private int location_id;
-    @Column(nullable = false )
-    private int vehicle_id;
-    @Column(nullable = false )
-    private int user_id;
+    @ManyToOne
+    @JoinColumn(name="location_id",nullable = false)
+    private Location location;
+    @ManyToOne
+    @JoinColumn(name="vehicle_id", nullable = false)
+    private Vehicle vehicleWithBooking ;
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable = false)
+    private Users users ;
 
-    public int getBooking_id() {
-        return booking_id;
+    public int getBookingId() {
+        return bookingId;
     }
 
-    public void setBooking_id(int booking_id) {
-        this.booking_id = booking_id;
+    public void setBookingId(int bookingId) {
+        this.bookingId = bookingId;
     }
 
-    public LocalDateTime getPickup_date() {
-        return pickup_date;
+    public LocalDateTime getPickupDate() {
+        return pickupDate;
     }
 
-    public void setPickup_date(LocalDateTime pickup_date) {
-        this.pickup_date = pickup_date;
+    public void setPickupDate(LocalDateTime pickupDate) {
+        this.pickupDate = pickupDate;
     }
 
-    public LocalDateTime getDropoff_date() {
-        return dropoff_date;
+    public LocalDateTime getDropoffDate() {
+        return dropoffDate;
     }
 
-    public void setDropoff_date(LocalDateTime dropoff_date) {
-        this.dropoff_date = dropoff_date;
+    public void setDropoffDate(LocalDateTime dropoffDate) {
+        this.dropoffDate = dropoffDate;
     }
 
-    public LocalDateTime getBooking_date() {
-        return booking_date;
+    public LocalDateTime getBookingDate() {
+        return bookingDate;
     }
 
-    public void setBooking_date(LocalDateTime booking_date) {
-        this.booking_date = booking_date;
+    public void setBookingDate(LocalDateTime bookingDate) {
+        this.bookingDate = bookingDate;
     }
 
     public float getAmount() {
@@ -64,41 +67,41 @@ public class Booking {
         this.amount = amount;
     }
 
-    public int getLocation_id() {
-        return location_id;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setLocation_id(int location_id) {
-        this.location_id = location_id;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
-    public int getVehicle_id() {
-        return vehicle_id;
+    public Vehicle getVehicleWithBooking() {
+        return vehicleWithBooking;
     }
 
-    public void setVehicle_id(int vehicle_id) {
-        this.vehicle_id = vehicle_id;
+    public void setVehicleWithBooking(Vehicle vehicleWithBooking) {
+        this.vehicleWithBooking = vehicleWithBooking;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public Users getUsers() {
+        return users;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUsers(Users users) {
+        this.users = users;
     }
 
     @Override
     public String toString() {
-        return "booking{" +
-                "booking_id=" + booking_id +
-                ", pickup_date=" + pickup_date +
-                ", dropoff_date=" + dropoff_date +
-                ", booking_date=" + booking_date +
+        return "Booking{" +
+                "bookingId=" + bookingId +
+                ", pickupDate=" + pickupDate +
+                ", dropoffDate=" + dropoffDate +
+                ", bookingDate=" + bookingDate +
                 ", amount=" + amount +
-                ", location_id=" + location_id +
-                ", vehicle_id=" + vehicle_id +
-                ", user_id=" + user_id +
+                ", location=" + location +
+                ", vehicleWithBooking=" + vehicleWithBooking +
+                ", users=" + users +
                 '}';
     }
 }

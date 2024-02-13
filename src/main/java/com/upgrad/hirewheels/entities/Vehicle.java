@@ -1,59 +1,97 @@
 package com.upgrad.hirewheels.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Vehicle {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int vehicle_id;
+    @GeneratedValue
+    private int vehicleId;
 
     @Column(length = 50 , nullable = false)
-    private String vehicle_model;
-    @Column(nullable = false)
-    private String vehicle_number;
-    private int vehicle_subcategory_id;
+    private String vehicleModel;
+    @Column(length = 10,nullable = false)
+    private String vehicleNumber;
     @Column(length = 50 , nullable = false)
     private String color;
+
     @Column(nullable = false)
-    private int location_id;
-    @Column(nullable = false)
-    private int fuel_type_id;
-    @Column(nullable = false)
-    private int avaliability_status;
+    private int avaliabilityStatus;
     @Column(length = 500 , nullable = false)
-    private String vehicle_image_url;
+    private String vehicleImageUrl;
 
-    public int getVehicle_id() {
-        return vehicle_id;
+    @ManyToOne
+    @JoinColumn(name = "vehicle_subcategory_id")
+    @JsonBackReference
+    private VehicleSubcategory vehicleSubcategory ;
+
+    @ManyToOne
+    @JoinColumn(name = "location_id" , nullable = false)
+    //@JsonManagedReferences and JsonBackReferences are used to display objects with parent child relationship.
+    // @JsonManagedReferences is used to refer to parent object and @JsonBackReferences is used to mark child objects
+    @JsonBackReference
+    private Location location ;
+
+    @ManyToOne
+    @JoinColumn(name = "fuel_type_id" , nullable = false)
+    @JsonBackReference
+    private FuelType fuelType ;
+
+    @OneToMany(mappedBy = "vehicleWithBooking" , fetch = FetchType.EAGER ,cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Set<Booking> bookings;
+
+    public Vehicle(){}
+
+    public Vehicle(String vehicleModel, String vehicleNumber, String color, int avaliabilityStatus, String vehicleImageUrl, VehicleSubcategory vehicleSubcategory, Location location, FuelType fuelType) {
+        this.vehicleModel = vehicleModel;
+        this.vehicleNumber = vehicleNumber;
+        this.color = color;
+        this.avaliabilityStatus = avaliabilityStatus;
+        this.vehicleImageUrl = vehicleImageUrl;
+        this.vehicleSubcategory = vehicleSubcategory;
+        this.location = location;
+        this.fuelType = fuelType;
     }
 
-    public void setVehicle_id(int vehicle_id) {
-        this.vehicle_id = vehicle_id;
+    public Vehicle(int vehicleId, String vehicleModel, String vehicleNumber, String color, int avaliabilityStatus, String vehicleImageUrl, VehicleSubcategory vehicleSubcategory, Location location, FuelType fuelType) {
+        this.vehicleId = vehicleId;
+        this.vehicleModel = vehicleModel;
+        this.vehicleNumber = vehicleNumber;
+        this.color = color;
+        this.avaliabilityStatus = avaliabilityStatus;
+        this.vehicleImageUrl = vehicleImageUrl;
+        this.vehicleSubcategory = vehicleSubcategory;
+        this.location = location;
+        this.fuelType = fuelType;
     }
 
-    public String getVehicle_model() {
-        return vehicle_model;
+    public int getVehicleId() {
+        return vehicleId;
     }
 
-    public void setVehicle_model(String vehicle_model) {
-        this.vehicle_model = vehicle_model;
+    public void setVehicleId(int vehicleId) {
+        this.vehicleId = vehicleId;
     }
 
-    public String getVehicle_number() {
-        return vehicle_number;
+    public String getVehicleModel() {
+        return vehicleModel;
     }
 
-    public void setVehicle_number(String vehicle_number) {
-        this.vehicle_number = vehicle_number;
+    public void setVehicleModel(String vehicleModel) {
+        this.vehicleModel = vehicleModel;
     }
 
-    public int getVehicle_subcategory_id() {
-        return vehicle_subcategory_id;
+    public String getVehicleNumber() {
+        return vehicleNumber;
     }
 
-    public void setVehicle_subcategory_id(int vehicle_subcategory_id) {
-        this.vehicle_subcategory_id = vehicle_subcategory_id;
+    public void setVehicleNumber(String vehicleNumber) {
+        this.vehicleNumber = vehicleNumber;
     }
 
     public String getColor() {
@@ -64,50 +102,68 @@ public class Vehicle {
         this.color = color;
     }
 
-    public int getLocation_id() {
-        return location_id;
+    public int getAvaliabilityStatus() {
+        return avaliabilityStatus;
     }
 
-    public void setLocation_id(int location_id) {
-        this.location_id = location_id;
+    public void setAvaliabilityStatus(int avaliabilityStatus) {
+        this.avaliabilityStatus = avaliabilityStatus;
     }
 
-    public int getFuel_type_id() {
-        return fuel_type_id;
+    public String getVehicleImageUrl() {
+        return vehicleImageUrl;
     }
 
-    public void setFuel_type_id(int fuel_type_id) {
-        this.fuel_type_id = fuel_type_id;
+    public void setVehicleImageUrl(String vehicleImageUrl) {
+        this.vehicleImageUrl = vehicleImageUrl;
     }
 
-    public int getAvaliability_status() {
-        return avaliability_status;
+    public VehicleSubcategory getVehicleSubcategory() {
+        return vehicleSubcategory;
     }
 
-    public void setAvaliability_status(int avaliability_status) {
-        this.avaliability_status = avaliability_status;
+    public void setVehicleSubcategory(VehicleSubcategory vehicleSubcategory) {
+        this.vehicleSubcategory = vehicleSubcategory;
     }
 
-    public String getVehicle_image_url() {
-        return vehicle_image_url;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setVehicle_image_url(String vehicle_image_url) {
-        this.vehicle_image_url = vehicle_image_url;
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public FuelType getFuelType() {
+        return fuelType;
+    }
+
+    public void setFuelType(FuelType fuelType) {
+        this.fuelType = fuelType;
+    }
+
+    public Set<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(Set<Booking> bookings) {
+        this.bookings = bookings;
     }
 
     @Override
     public String toString() {
-        return "vehicle{" +
-                "vehicle_id=" + vehicle_id +
-                ", vehicle_model='" + vehicle_model + '\'' +
-                ", vehicle_number='" + vehicle_number + '\'' +
-                ", vehicle_subcategory_id=" + vehicle_subcategory_id +
+        return "Vehicle{" +
+                "vehicleId=" + vehicleId +
+                ", vehicleModel='" + vehicleModel + '\'' +
+                ", vehicleNumber='" + vehicleNumber + '\'' +
                 ", color='" + color + '\'' +
-                ", location_id=" + location_id +
-                ", fuel_type_id=" + fuel_type_id +
-                ", avaliability_status=" + avaliability_status +
-                ", vehicle_image_url='" + vehicle_image_url + '\'' +
+                ", avaliabilityStatus=" + avaliabilityStatus +
+                ", vehicleImageUrl='" + vehicleImageUrl + '\'' +
+                ", vehicleSubcategory=" + vehicleSubcategory +
+                ", location=" + location +
+                ", fuelType=" + fuelType +
+                ", bookings=" + bookings +
                 '}';
     }
+
 }

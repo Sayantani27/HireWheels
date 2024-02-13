@@ -1,37 +1,55 @@
 package com.upgrad.hirewheels.entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class City {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int city_id;
+    private int cityId;
 
     @Column(length = 50 , nullable = false)
-    private String city_name;
+    private String cityName;
 
-    public int getCity_id() {
-        return city_id;
+    @OneToMany(mappedBy = "city", fetch = FetchType.EAGER , cascade = CascadeType.ALL)
+    private Set<Location> location;
+
+    public City(){}
+    public City(int cityId , String cityName){
+        this.cityId = cityId;
+        this.cityName = cityName;
     }
 
-    public void setCity_id(int city_id) {
-        this.city_id = city_id;
+    public int getCityId() {
+        return cityId;
     }
 
-    public String getCity_name() {
-        return city_name;
+    public void setCityId(int cityId) {
+        this.cityId = cityId;
     }
 
-    public void setCity_name(String city_name) {
-        this.city_name = city_name;
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public Set<Location> getLocation() {
+        return location;
+    }
+
+    public void setLocation(Set<Location> location) {
+        this.location = location;
     }
 
     @Override
     public String toString() {
-        return "city{" +
-                "city_id=" + city_id +
-                ", city_name='" + city_name + '\'' +
+        return "City{" +
+                "cityId=" + cityId +
+                ", cityName='" + cityName + '\'' +
+                ", location=" + location +
                 '}';
     }
 }

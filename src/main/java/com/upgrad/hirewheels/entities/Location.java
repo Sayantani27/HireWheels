@@ -1,36 +1,53 @@
 package com.upgrad.hirewheels.entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Location {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int location_id;
+    private int locationId;
 
     @Column(length = 50 , nullable = false)
-    private String location_name;
+    private String locationName;
     @Column(length = 100 , nullable = false)
     private String address;
-    @Column(nullable = false)
-    private int city_id;
     @Column(length = 6 , nullable = false)
     private String pincode;
+    @ManyToOne
+    @JoinColumn(name = "city_id" , nullable = false )
+    private City city;
 
-    public int getLocation_id() {
-        return location_id;
+    @OneToMany(mappedBy = "location", fetch = FetchType.EAGER , cascade = CascadeType.ALL)
+    private Set<Booking> bookingsList;
+
+    @OneToMany(mappedBy = "location", fetch = FetchType.EAGER , cascade = CascadeType.ALL)
+    private Set<Vehicle> vehicles;
+
+    private Location(){}
+
+    public Location(int locationId, String locationName, String address, String pincode, City city) {
+        this.locationId = locationId;
+        this.locationName = locationName;
+        this.address = address;
+        this.pincode = pincode;
+        this.city = city;
     }
 
-    public void setLocation_id(int location_id) {
-        this.location_id = location_id;
+    public int getLocationId() {
+        return locationId;
     }
 
-    public String getLocation_name() {
-        return location_name;
+    public void setLocationId(int locationId) {
+        this.locationId = locationId;
     }
 
-    public void setLocation_name(String location_name) {
-        this.location_name = location_name;
+    public String getLocationName() {
+        return locationName;
+    }
+
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
     }
 
     public String getAddress() {
@@ -41,14 +58,6 @@ public class Location {
         this.address = address;
     }
 
-    public int getCity_id() {
-        return city_id;
-    }
-
-    public void setCity_id(int city_id) {
-        this.city_id = city_id;
-    }
-
     public String getPincode() {
         return pincode;
     }
@@ -57,14 +66,40 @@ public class Location {
         this.pincode = pincode;
     }
 
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
+    public Set<Booking> getBookingsList() {
+        return bookingsList;
+    }
+
+    public void setBookingsList(Set<Booking> bookingsList) {
+        this.bookingsList = bookingsList;
+    }
+
+    public Set<Vehicle> getVehicles() {
+        return vehicles;
+    }
+
+    public void setVehicles(Set<Vehicle> vehicles) {
+        this.vehicles = vehicles;
+    }
+
     @Override
     public String toString() {
-        return "location{" +
-                "location_id=" + location_id +
-                ", location_name='" + location_name + '\'' +
+        return "Location{" +
+                "locationId=" + locationId +
+                ", locationName='" + locationName + '\'' +
                 ", address='" + address + '\'' +
-                ", city_id=" + city_id +
                 ", pincode='" + pincode + '\'' +
+                ", city=" + city +
+                ", bookingsList=" + bookingsList +
+                ", vehicles=" + vehicles +
                 '}';
     }
 }

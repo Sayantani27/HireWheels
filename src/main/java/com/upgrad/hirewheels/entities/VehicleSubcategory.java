@@ -1,59 +1,82 @@
 package com.upgrad.hirewheels.entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class VehicleSubcategory {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int vehicle_subcategory_id;
+    private int vehicleSubcategoryId;
 
     @Column(length = 50 , nullable = false , unique = true)
-    private String vehicle_subcategory_name;
+    private String vehicleSubcategoryName;
     @Column(nullable = false)
-    private float price_per_day;
-    @Column(nullable = false )
-    private int vehicle_category_id;
+    private float pricePerDay;
 
-    public int getVehicle_subcategory_id() {
-        return vehicle_subcategory_id;
+    @ManyToOne
+    @JoinColumn(name = "vehicle_category_id", nullable = false)
+    private VehicleCategory vehicleCategory;
+
+    @OneToMany(mappedBy = "vehicleSubcategory", fetch = FetchType.EAGER , cascade = CascadeType.ALL)
+    private Set<Vehicle> vehicles;
+
+    public VehicleSubcategory(){}
+
+    public VehicleSubcategory(int vehicleSubcategoryId, String vehicleSubcategoryName, float pricePerDay, VehicleCategory vehicleCategory) {
+        this.vehicleSubcategoryId = vehicleSubcategoryId;
+        this.vehicleSubcategoryName = vehicleSubcategoryName;
+        this.pricePerDay = pricePerDay;
+        this.vehicleCategory = vehicleCategory;
     }
 
-    public void setVehicle_subcategory_id(int vehicle_subcategory_id) {
-        this.vehicle_subcategory_id = vehicle_subcategory_id;
+    public int getVehicleSubcategoryId() {
+        return vehicleSubcategoryId;
     }
 
-    public String getVehicle_subcategory_name() {
-        return vehicle_subcategory_name;
+    public void setVehicleSubcategoryId(int vehicleSubcategoryId) {
+        this.vehicleSubcategoryId = vehicleSubcategoryId;
     }
 
-    public void setVehicle_subcategory_name(String vehicle_subcategory_name) {
-        this.vehicle_subcategory_name = vehicle_subcategory_name;
+    public String getVehicleSubcategoryName() {
+        return vehicleSubcategoryName;
     }
 
-    public float getPrice_per_day() {
-        return price_per_day;
+    public void setVehicleSubcategoryName(String vehicleSubcategoryName) {
+        this.vehicleSubcategoryName = vehicleSubcategoryName;
     }
 
-    public void setPrice_per_day(float price_per_day) {
-        this.price_per_day = price_per_day;
+    public float getPricePerDay() {
+        return pricePerDay;
     }
 
-    public int getVehicle_category_id() {
-        return vehicle_category_id;
+    public void setPricePerDay(float pricePerDay) {
+        this.pricePerDay = pricePerDay;
     }
 
-    public void setVehicle_category_id(int vehicle_category_id) {
-        this.vehicle_category_id = vehicle_category_id;
+    public VehicleCategory getVehicleCategory() {
+        return vehicleCategory;
+    }
+
+    public void setVehicleCategory(VehicleCategory vehicleCategory) {
+        this.vehicleCategory = vehicleCategory;
+    }
+
+    public Set<Vehicle> getVehicles() {
+        return vehicles;
+    }
+
+    public void setVehicles(Set<Vehicle> vehicles) {
+        this.vehicles = vehicles;
     }
 
     @Override
     public String toString() {
-        return "vehicle_subcategory{" +
-                "vehicle_subcategory_id=" + vehicle_subcategory_id +
-                ", vehicle_subcategory_name='" + vehicle_subcategory_name + '\'' +
-                ", price_per_day=" + price_per_day +
-                ", vehicle_category_id=" + vehicle_category_id +
+        return "VehicleSubcategory{" +
+                "vehicleSubcategoryId=" + vehicleSubcategoryId +
+                ", vehicleSubcategoryName='" + vehicleSubcategoryName + '\'' +
+                ", pricePerDay=" + pricePerDay +
+                ", vehicleCategory=" + vehicleCategory +
+                ", vehicles=" + vehicles +
                 '}';
     }
 }
