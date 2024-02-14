@@ -25,7 +25,7 @@ public class Booking {
     private Vehicle vehicleWithBooking ;
     @ManyToOne
     @JoinColumn(name="user_id", nullable = false)
-    private Users users ;
+    private User users ;
 
     public int getBookingId() {
         return bookingId;
@@ -83,11 +83,11 @@ public class Booking {
         this.vehicleWithBooking = vehicleWithBooking;
     }
 
-    public Users getUsers() {
+    public User getUsers() {
         return users;
     }
 
-    public void setUsers(Users users) {
+    public void setUsers(User users) {
         this.users = users;
     }
 

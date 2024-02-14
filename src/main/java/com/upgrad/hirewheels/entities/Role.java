@@ -1,37 +1,57 @@
 package com.upgrad.hirewheels.entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Role {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int role_id;
+    private int roleId;
 
-    @Column(length = 50, unique = true , nullable = false)
-    private String role_name;
+    @Column(length = 50, nullable = false)
+    private String roleName;
 
-    public int getRole_id() {
-        return role_id;
+    @OneToMany(mappedBy = "role", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<User> userList;
+
+    public Role() {
     }
 
-    public void setRole_id(int role_id) {
-        this.role_id = role_id;
+    public Role(int roleId, String roleName) {
+        this.roleId = roleId;
+        this.roleName = roleName;
     }
 
-    public String getRole_name() {
-        return role_name;
+    public int getRoleId() {
+        return roleId;
     }
 
-    public void setRole_name(String role_name) {
-        this.role_name = role_name;
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public Set<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(Set<User> userList) {
+        this.userList = userList;
     }
 
     @Override
     public String toString() {
-        return "role{" +
-                "role_id=" + role_id +
-                ", role_name='" + role_name + '\'' +
+        return "Role{" +
+                "roleId=" + roleId +
+                ", roleName='" + roleName + '\'' +
+                ", userList=" + userList +
                 '}';
     }
 }

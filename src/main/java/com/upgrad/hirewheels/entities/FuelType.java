@@ -1,37 +1,57 @@
 package com.upgrad.hirewheels.entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class FuelType {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int fuel_type_id;
+    private int fuelTypeId;
 
     @Column(length = 50 , nullable = false, unique = true)
-    private String fuel_type;
+    private String fuelType;
 
-    public int getFuel_type_id() {
-        return fuel_type_id;
+    @OneToMany(mappedBy = "fuelType", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Vehicle> vehicles;
+
+    public FuelType() {
     }
 
-    public void setFuel_type_id(int fuel_type_id) {
-        this.fuel_type_id = fuel_type_id;
+    public FuelType(int fuelTypeId, String fuelType) {
+        this.fuelTypeId = fuelTypeId;
+        this.fuelType = fuelType;
     }
 
-    public String getFuel_type() {
-        return fuel_type;
+    public int getFuelTypeId() {
+        return fuelTypeId;
     }
 
-    public void setFuel_type(String fuel_type) {
-        this.fuel_type = fuel_type;
+    public void setFuelTypeId(int fuelTypeId) {
+        this.fuelTypeId = fuelTypeId;
+    }
+
+    public String getFuelType() {
+        return fuelType;
+    }
+
+    public void setFuelType(String fuelType) {
+        this.fuelType = fuelType;
+    }
+
+    public Set<Vehicle> getVehicles() {
+        return vehicles;
+    }
+
+    public void setVehicles(Set<Vehicle> vehicles) {
+        this.vehicles = vehicles;
     }
 
     @Override
     public String toString() {
-        return "fuel_type{" +
-                "fuel_type_id=" + fuel_type_id +
-                ", fuel_type='" + fuel_type + '\'' +
+        return "FuelType{" +
+                "fuelTypeId=" + fuelTypeId +
+                ", fuelType='" + fuelType + '\'' +
+                ", vehicles=" + vehicles +
                 '}';
     }
 }
