@@ -1,7 +1,7 @@
 package com.upgrad.hirewheels.services;
 
+import com.upgrad.hirewheels.dao.*;
 import com.upgrad.hirewheels.entities.*;
-import jdk.javadoc.doclet.Taglet;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -72,14 +72,14 @@ public class InitServiceImpl implements InitService{
     }
 
     private void addUserRole(){
-        List<UserRole> userRoleList = Arrays.asList(new UserRole(1,"Admin"),
-                                                    new UserRole(2,"User"));
-        userRoleDAO.saveAll(userRoleList);
+        List<Role> userRoleList = Arrays.asList(new Role(1,"Admin"),
+                                                    new Role(2,"User"));
+        UserRoleDAO.saveAll(userRoleList);
     }
 
     private void addUsers(){
         User adminUser = new User("Upgrad","Admin","admin@123","upgrad@gmail.com","9999999999",10000,userRoleDAO.findByRoleId(1));
-        userDAO.save(adminUser);
+        UserDAO.save(adminUser);
     }
 
 }
