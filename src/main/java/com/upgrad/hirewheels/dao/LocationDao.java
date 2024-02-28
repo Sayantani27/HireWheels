@@ -4,5 +4,5 @@ import com.upgrad.hirewheels.entities.Location;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface LocationDAO extends JpaRepository<Location,Integer> {
+public interface LocationDao extends JpaRepository<Location,Integer> {
 }

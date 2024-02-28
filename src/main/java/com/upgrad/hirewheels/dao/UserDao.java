@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface UserDAO extends JpaRepository<User,Integer> {
+public interface UserDao extends JpaRepository<User,Integer> {
 
     public List<User> findByFirstNameIgnoreCase(String firstName);
     public List<User> findByFirstNameIgnoreCaseOrLastNameIgnoreCase(String firstName , String lastName);
